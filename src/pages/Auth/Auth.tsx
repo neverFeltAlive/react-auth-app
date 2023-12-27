@@ -1,12 +1,9 @@
-import { useAuthentication } from 'hooks/useAuthentication.ts';
-import { Button } from 'primereact/button';
+import { Auth as AuthModule } from 'modules';
 
 export const Auth = () => {
-  const [, setIsAuthorized] = useAuthentication();
-
   return (
     <div>
-      <Button onClick={() => setIsAuthorized(true)}>Login</Button>
+      <AuthModule />
     </div>
   );
 };

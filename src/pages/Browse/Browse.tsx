@@ -1,3 +1,9 @@
+import { Viewer } from 'modules';
+
 export const Browse = () => {
-  return <div>Browse</div>;
+  return (
+    <div className="m-10">
+      <Viewer />
+    </div>
+  );
 };

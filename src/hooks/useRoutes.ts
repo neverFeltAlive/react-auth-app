@@ -24,7 +24,7 @@ export function useRoutes() {
     '/login': isUserAuthorized
       ? {
           label: 'Logout',
-          icon: 'pi pi-fw pi-power-off',
+          icon: 'pi pi-fw pi-power-off text-red',
           command: () => {
             unauthorizeUser();
           },

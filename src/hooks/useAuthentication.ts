@@ -15,17 +15,15 @@ export function useAuthentication() {
     'isAuthorized',
   ]);
 
-  console.log(isAuthorizedCookie);
-
   const setIsAuthorized = (value: boolean) => {
     dispatch(setIsAuthorizedStore(value));
   };
 
   useEffect(() => {
-    if (isAuthorizedCookie.isAuthorized === 'true') {
+    if (isAuthorizedCookie.isAuthorized) {
       setIsAuthorized(true);
     }
-  }, []);
+  }, [isAuthorizedCookie]);
 
   const authorizeUser = () => {
     setIsAuthorized(true);

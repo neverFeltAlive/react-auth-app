@@ -8,7 +8,8 @@ import { useCurrentRoute } from './useCurrentRoute.ts';
 export function useRoutes() {
   const currentPath = useCurrentRoute();
   const navigate = useNavigate();
-  const [isUserAuthenticated, setIsUserAuthenticated] = useAuthentication();
+  const { isAuthorized: isUserAuthorized, unauthorizeUser } =
+    useAuthentication();
 
   const routesMap: { [key: string]: MenuItem } = {
     '/': {
@@ -18,14 +19,14 @@ export function useRoutes() {
     '/browse': {
       label: 'Browse',
       icon: 'pi pi-fw pi-file',
-      disabled: !isUserAuthenticated || '/browse' === currentPath,
+      disabled: !isUserAuthorized || '/browse' === currentPath,
     },
-    '/login': isUserAuthenticated
+    '/login': isUserAuthorized
       ? {
           label: 'Logout',
           icon: 'pi pi-fw pi-power-off',
           command: () => {
-            setIsUserAuthenticated(false);
+            unauthorizeUser();
           },
         }
       : { label: 'Login', icon: 'pi pi-fw pi-check' },
@@ -42,7 +43,7 @@ export function useRoutes() {
             ...route,
           }) as MenuItem
       ),
-    [isUserAuthenticated, currentPath]
+    [isUserAuthorized, currentPath]
   );
 
   return routes;

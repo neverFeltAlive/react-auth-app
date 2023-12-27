@@ -1,17 +1,28 @@
 import { Auth, Browse, Home } from 'pages';
+import { FC } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
-export const router = createBrowserRouter([
+import { Layout } from './components';
+
+const renderPage = (Component: FC<object>) => (
+  <Layout>
+    <Component />
+  </Layout>
+);
+
+export const routes = [
   {
     path: '/',
-    element: <Home />,
+    element: renderPage(Home),
   },
   {
     path: '/login',
-    element: <Auth />,
+    element: renderPage(Auth),
   },
   {
     path: '/browse',
-    element: <Browse />,
+    element: renderPage(Browse),
   },
-]);
+];
+
+export const router = createBrowserRouter(routes);

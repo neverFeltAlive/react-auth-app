@@ -2,7 +2,7 @@ import { Auth, Browse, Home } from 'pages';
 import { FC } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
-import { Layout } from './components';
+import { Layout, PrivateRoute } from './components';
 
 const renderPage = (Component: FC<object>) => (
   <Layout>
@@ -17,11 +17,19 @@ export const routes = [
   },
   {
     path: '/login',
-    element: renderPage(Auth),
+    element: (
+      <PrivateRoute shouldBeAuthorized={false} redirectTo="/">
+        {renderPage(Auth)}
+      </PrivateRoute>
+    ),
   },
   {
     path: '/browse',
-    element: renderPage(Browse),
+    element: (
+      <PrivateRoute shouldBeAuthorized={true} redirectTo="/login">
+        {renderPage(Browse)}
+      </PrivateRoute>
+    ),
   },
 ];
 
